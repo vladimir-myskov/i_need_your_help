@@ -1,4 +1,11 @@
 INeedYourHelp::Application.routes.draw do
+  resources :ticket_actions
+
+
+  devise_for :users
+
+  resources :tickets
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +55,7 @@ INeedYourHelp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'tickets#new'
 
   # See how all your routes lay out with "rake routes"
 

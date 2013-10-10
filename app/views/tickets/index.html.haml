@@ -1,0 +1,42 @@
+.panel.filter-panel
+  =form_tag tickets_path, :method => 'get' do
+    .button_groups
+      .button{ :data => {'filter' => 'unassigned'}}
+        New unassigned tickets
+      .button{ :data => {'filter' => 'opened'}}
+        Open tickets
+      .button{ :data => {'filter' => 'hold'}}
+        On hold tickets
+      .button{ :data => {'filter' => 'closed'}}
+        Closed tickets
+
+      = hidden_field_tag :filter, params[:filter]
+
+    .search    
+      = text_field_tag :search, params[:search], :placeholder => "search"
+      = submit_tag "Search", :name => nil
+
+%table
+  %tr
+    %th Username
+    %th Email
+    %th Subject
+    %th Body
+    %th Token
+    %th Status
+    %th    
+
+  - @tickets.each do |ticket|
+    %tr
+      %td= ticket.username
+      %td= ticket.email
+      %td= ticket.subject
+      %td= ticket.body
+      %td= ticket.token
+      %td= ticket.status.status
+      %td= link_to 'Reply', ticket
+      %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Ticket', new_ticket_path

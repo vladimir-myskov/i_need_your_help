@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1 Ticket was replied
+
+    %p Comment: #{@ticket_action.comment}
+
+    - if @ticket_action.status 
+      %p Status: #{@ticket_action.status.status}
+
+    = link_to 'View ticket', ticket_url(@ticket)

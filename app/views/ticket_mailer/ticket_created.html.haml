@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1 Ticket was created
+
+    %h2 Subject: #{@ticket.subject} 
+
+    %p #{@ticket.body}
+
+    = link_to 'View ticket', ticket_url(@ticket)

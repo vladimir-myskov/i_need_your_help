@@ -1,0 +1,25 @@
+= form_for ticket_action do |f|
+  - if ticket_action.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(ticket_action.errors.count, "error")} prohibited this ticket_action from being saved:"
+      %ul
+        - ticket_action.errors.full_messages.each do |msg|
+          %li= msg
+
+  = f.hidden_field :user_id, :value => current_user.id
+  = f.hidden_field :ticket_id, :value => ticket.id
+
+  .field
+    = f.label :comment
+    = f.text_area :comment
+
+  .field
+    = f.label :status
+    = f.collection_select :status_id, Status.all, :id, :status, {:selected => Status.find_by_status("On Hold").id}
+
+  .field
+    = f.label :owner
+    = f.collection_select :owner_id, User.all, :id, :email
+
+  .actions
+    = f.submit 'Reply'

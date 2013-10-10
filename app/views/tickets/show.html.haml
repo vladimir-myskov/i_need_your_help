@@ -1,0 +1,47 @@
+%p#notice= notice
+
+.panel
+  .panel.callout
+    %h3 
+      Ticket #{ @ticket.token }
+    .tiny.button.secondary.right
+      #{ @ticket.created_at.strftime("%Y-%m-%d(%H:%M)") }  
+
+  .panel
+    %h4 Subject:
+    #{@ticket.subject}
+  .panel
+    %h4 Created by #{@ticket.username}
+  .panel
+    %h4 Body:
+    #{@ticket.body}
+  .alert-box.success
+    Status: #{@ticket.status.status}
+
+  - if @ticket.owner 
+    .alert-box.success
+      Owned by: #{@ticket.owner.email}
+
+- @ticket.ticket_actions.each do |action|
+  .panel
+    .panel.callout
+      %h3 Action
+      .tiny.button.secondary.right
+        #{ action.created_at.strftime("%Y-%m-%d(%H:%M)") }  
+    - if action.owner 
+      .alert-box.success
+        Owned by: #{action.owner.email}
+    - if action.status 
+      .alert-box.success
+        Status: #{action.status.status}
+    .panel      
+      #{action.comment}
+
+.panel
+  .panel.callout
+    %h3 Reply
+  .panel
+    -if user_signed_in?
+      = render :partial => 'ticket_actions/staff_form', :locals => {:ticket => @ticket, :ticket_action => @ticket_action||TicketAction.new}
+    -else
+      = render :partial => 'ticket_actions/client_form', :locals => {:ticket => @ticket, :ticket_action => @ticket_action||TicketAction.new}
