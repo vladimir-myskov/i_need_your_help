@@ -4,7 +4,9 @@ http://www.cyberciti.biz/faq/howto-add-postgresql-user-account/
   database: i_need_your_help_development
   username: i_need_your_help
   password: i_need_your_help
-
+  
+== Setup smtp
+Do not forgot to change smtp settings
 
 == Setup staff user
   u = User.create(:email=>"jaromudr@gmail.com", :password=>"12345678", :password_confirmation => "12345678")
